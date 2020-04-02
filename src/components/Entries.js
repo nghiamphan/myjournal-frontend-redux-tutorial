@@ -13,7 +13,16 @@ const Entry = ({ entry, handleClick }) => {
 
 const Entries = () => {
 	const dispatch = useDispatch()
-	const entries = useSelector(state => state)
+	let entries = useSelector(({ filter, entries}) => {
+		switch (filter) {
+			case 'IMPORTANT':
+				return entries.filter(entry => entry.important)
+			case 'NONIMPORTANT':
+				return entries.filter(entry => !entry.important)
+			default:
+				return entries
+		}
+	})
 
 	return (
 		<ul>

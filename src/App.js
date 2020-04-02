@@ -1,12 +1,14 @@
 import React from 'react'
 import NewEntry from './components/NewEntry'
+import VisibilityFilter from './components/VisibilityFilter'
 import Entries from './components/Entries'
 
 const App = () => {
 	return (
 		<div>
-			<NewEntry/>
-			<Entries/>
+			<NewEntry />
+			<VisibilityFilter />
+			<Entries />
 		</div>
 	)
 }
