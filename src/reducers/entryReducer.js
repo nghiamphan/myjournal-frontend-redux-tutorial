@@ -1,3 +1,5 @@
+import entryService from "../services/entryService"
+
 const entryReducer = (state = [], action) => {
 	switch (action.type) {
 		case 'NEW_ENTRY':
@@ -17,21 +19,24 @@ const entryReducer = (state = [], action) => {
 	}
 }
 
-export const initializeEntries = (entries) => {
-	return {
-		type: 'INIT_ENTRIES',
-		data: entries,
-	}
+export const initializeEntries = () => {
+	return async dispatch => {
+		const entries = await entryService.getAll()
+		dispatch({
+			type: 'INIT_ENTRIES',
+			data: entries,
+		})
+	} 
 }
 
-const generateId = () =>
-	Number((Math.random() * 1000000).toFixed(0))
-
-export const createEntry = (data) => {
-	return {
-		type: 'NEW_ENTRY',
-		data
-	}
+export const createEntry = (content) => {
+	return async dispatch => {
+		const newEntry = await entryService.createNew(content)
+		dispatch({
+			type: 'NEW_ENTRY',
+			data: newEntry
+		})
+	} 
 }
 
 export const toggleImportanceOf = (id) => {

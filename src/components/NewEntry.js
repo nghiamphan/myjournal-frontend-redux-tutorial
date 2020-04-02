@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { createEntry } from '../reducers/entryReducer'
-import entryService from '../services/entryService'
 
 const NewEntry = () => {
 	const dispatch = useDispatch()
@@ -10,8 +9,7 @@ const NewEntry = () => {
 		event.preventDefault()
 		const content = event.target.entry.value
 		event.target.entry.value = ''
-		const newEntry = await entryService.createNew(content)
-		dispatch(createEntry(newEntry))
+		dispatch(createEntry(content))
 	}
 
 	return (
