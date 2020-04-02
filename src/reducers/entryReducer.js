@@ -1,20 +1,9 @@
-const initialState = [
-  {
-    content: 'reducer defines how redux store works',
-    important: true,
-    id: 1,
-  },
-  {
-    content: 'state of store can contain any data',
-    important: false,
-    id: 2,
-  },
-]
-
-const entryReducer = (state = initialState, action) => {
+const entryReducer = (state = [], action) => {
 	switch (action.type) {
 		case 'NEW_ENTRY':
 			return state.concat(action.data)
+		case 'INIT_ENTRIES':
+			return action.data
 		case 'TOGGLE_IMPORTANCE':
 			const id = action.data.id
 			const entryToChange = state.find(n => n.id === id)
@@ -28,17 +17,20 @@ const entryReducer = (state = initialState, action) => {
 	}
 }
 
+export const initializeEntries = (entries) => {
+	return {
+		type: 'INIT_ENTRIES',
+		data: entries,
+	}
+}
+
 const generateId = () =>
 	Number((Math.random() * 1000000).toFixed(0))
 
-export const createEntry = (content) => {
+export const createEntry = (data) => {
 	return {
 		type: 'NEW_ENTRY',
-		data: {
-			content,
-			important: false,
-			id: generateId()
-		}
+		data
 	}
 }
 
